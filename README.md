@@ -1,66 +1,58 @@
 Log Classification – Hybrid Classification Framework
 
-This project implements a hybrid log classification system that combines multiple approaches to handle varying levels of complexity in log patterns. The system is designed to efficiently classify logs ranging from simple rule-based patterns to complex, ambiguous cases.
+This project implements a hybrid log classification system that combines multiple approaches to handle different levels of complexity in log patterns. It is designed to classify both simple and complex log data efficiently.
 
 Key Idea
 
-Different log patterns require different strategies. This framework integrates multiple classification techniques to ensure flexibility, scalability, and accuracy.
+Different types of logs require different classification methods. This framework combines rule-based, machine learning, and language model approaches to improve flexibility and accuracy.
 
 Classification Approaches
 1. Regular Expression (Regex)
-Handles simple and highly predictable log patterns
-Uses predefined rules for fast and efficient classification
-Best suited for structured and repetitive logs
+
+Handles simple and predictable log patterns using predefined rules. This method is fast and works well for structured logs.
+
 2. Sentence Transformer + Logistic Regression
-Handles complex patterns with sufficient labeled data
-Converts log messages into embeddings using Sentence Transformers
-Applies Logistic Regression for final classification
+
+Handles more complex patterns when training data is available. Log messages are converted into embeddings using Sentence Transformers, and Logistic Regression is used for classification.
+
 3. Large Language Models (LLMs)
-Used for complex or unseen patterns
-Acts as a fallback when labeled training data is limited
-Provides flexible, context-aware classification
+
+Used for complex cases where labeled training data is limited. Acts as a fallback method and provides context-aware classification.
+
 Project Structure
-training/
-├── Contains model training scripts
-├── Includes Sentence Transformer + Logistic Regression training
-├── Regex-based classification logic
 
-models/
-├── Saved trained models
-├── Sentence Transformer embeddings
-├── Logistic Regression model files
+training folder contains the code for training models, including Sentence Transformer and Logistic Regression training, as well as regex-based classification logic.
 
-resources/
-├── Sample datasets (CSV files)
-├── Output files
-├── Images and supporting assets
+models folder stores trained models, including embeddings and the Logistic Regression model.
 
-server.py
-├── FastAPI backend for serving the model
+resources folder contains datasets, output files, and supporting images or files.
+
+The root directory contains the FastAPI server file (server.py).
+
 Setup Instructions
-1. Install Dependencies
-
-Make sure Python is installed, then run:
-
-pip install -r requirements.txt
-2. Run FastAPI Server
-uvicorn server:app --reload
-3. Access the API
-
-Once the server is running, open:
-
-Main API → http://127.0.0.1:8000/
-Swagger Docs → http://127.0.0.1:8000/docs
-ReDoc → http://127.0.0.1:8000/redoc
+Install Dependencies
+Install all required Python packages using requirements.txt.
+Run FastAPI Server
+Start the server using uvicorn server:app --reload.
+Access API
+Once the server is running, you can use:
+http://127.0.0.1:8000/ for the main API
+http://127.0.0.1:8000/docs for Swagger documentation
+http://127.0.0.1:8000/redoc for alternative documentation
 Usage
 
-Upload a CSV file containing logs to the API endpoint for classification.
+Upload a CSV file containing logs to the API for classification.
 
-Required Columns:
+Required columns in the CSV:
+
 source
 log_message
 Output
 
-The system returns a CSV file with an additional column:
+The system returns a CSV file with an additional column called target_label, which contains the predicted classification result for each log entry.
 
-target_label → predicted classification label for each log entry
+Highlights
+Hybrid approach combining rule-based, machine learning, and LLM methods
+Designed for both structured and unstructured logs
+Scalable FastAPI backend
+Flexible for real-world log classification use cases
